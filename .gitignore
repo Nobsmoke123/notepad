@@ -1,1 +1,3 @@
 server/node_modules/
+server/src/keys/private.key
+server/src/keys/public.key
