@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 import AppLogger from './logger';
+import { InternalServerError } from '../shared/errors';
 
 dotenv.config();
 
@@ -19,6 +20,15 @@ function readFile(keyPath: string) {
     const resolvedPath = path.resolve(__dirname, keyPath);
     return fs.readFileSync(resolvedPath, 'utf-8');
   } catch (error) {
-    AppLogger.error(`Failed to read file at ${keyPath}: ${error.message}`);
+    const err = error as Error;
+    AppLogger.error(
+      `Failed to read encryption file at ${keyPath}: ${err.message ?? 'Unknown error'}`,
+    );
+    throw new InternalServerError(
+      `Failed to read encryption file at ${keyPath}`,
+    );
   }
 }
+
+export const PUBLIC_KEY = readFile(getEnv('PUBLIC_KEY_PATH'));
+export const PRIVATE_KEY = readFile(getEnv('PRIVATE_KEY_PATH'));
