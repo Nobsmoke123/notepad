@@ -26,7 +26,7 @@ class AuthController {
     const data = req.body;
     const user = await this.authService.login(data);
 
-    success(res, { user }, 200);
+    success(res, { ...user }, 200);
     return;
   };
 }
