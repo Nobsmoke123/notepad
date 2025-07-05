@@ -69,9 +69,9 @@ class NoteRepository {
     });
   }
 
-  async deleteNoteById(id: string) {
+  async deleteNoteById(id: string, userId: string) {
     return await this.prisma.note.update({
-      where: { id },
+      where: { id, userId },
       data: { deletedAt: new Date() },
     });
   }
