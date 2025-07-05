@@ -15,6 +15,8 @@ router.use('/api/v1/auth', authRouter);
 router.use('/api/v1/tags', tagRouter);
 router.use('/api/v1/notes', noteRouter);
 
+// Admin Route
+
 router.all('/*splat', (_req: Request, res: Response) => {
   error(res, { status: 'Route not found' }, 404);
 });
