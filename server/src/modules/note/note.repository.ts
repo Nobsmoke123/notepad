@@ -48,12 +48,26 @@ class NoteRepository {
   async getNoteById(id: string) {
     return await this.prisma.note.findUnique({
       where: { id },
+      include: {
+        tags: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
   }
 
   async getNotesByUserId(userId: string) {
     return await this.prisma.note.findMany({
       where: { userId },
+      include: {
+        tags: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
   }
 
