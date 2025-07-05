@@ -6,7 +6,7 @@ import { InternalServerError } from '../shared/errors';
 
 dotenv.config();
 
-function getEnv(key: string): string {
+export function getEnv(key: string): string {
   const value = process.env[key];
   if (!value) {
     AppLogger.error(`Environment variable ${key} is not set.`);
