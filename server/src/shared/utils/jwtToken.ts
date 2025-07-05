@@ -12,14 +12,14 @@ export default class JWTToken {
     return jwt.sign(userData, PRIVATE_KEY, {
       algorithm: 'RS256',
       expiresIn: '30000',
-      issuer: 'devrail',
+      issuer: 'Notepad',
     });
   };
 
   static verifyToken = (token: string): ITokenPayload => {
     return jwt.verify(token, PUBLIC_KEY, {
       algorithms: ['RS256'],
-      issuer: 'devrail',
+      issuer: 'Notepad',
     }) as ITokenPayload;
   };
 }

@@ -29,6 +29,12 @@ class AuthController {
     success(res, { ...user }, 200);
     return;
   };
+
+  getMe = async (req: Request, res: Response) => {
+    const user = req.user;
+    success(res, { ...user }, 200);
+    return;
+  };
 }
 
 export default AuthController;
