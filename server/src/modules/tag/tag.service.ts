@@ -4,7 +4,7 @@ import TagRepository from './tag.repository';
 @injectable()
 class TagService {
   constructor(
-    @inject('TagRepository') private readonly tagRepository: TagRepository,
+    @inject(TagRepository) private readonly tagRepository: TagRepository,
   ) {}
 
   /**

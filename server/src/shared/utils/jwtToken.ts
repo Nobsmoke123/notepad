@@ -11,7 +11,7 @@ export default class JWTToken {
   static generateToken = (userData: ITokenPayload): string => {
     return jwt.sign(userData, PRIVATE_KEY, {
       algorithm: 'RS256',
-      expiresIn: '30000',
+      expiresIn: '1h',
       issuer: 'Notepad',
     });
   };

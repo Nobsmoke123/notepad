@@ -6,7 +6,7 @@ import { CreateTagInput, DeleteTagInput, UpdateTagInput } from './tag.schema';
 
 @injectable()
 class TagController {
-  constructor(@inject('TagService') private readonly tagService: TagService) {}
+  constructor(@inject(TagService) private readonly tagService: TagService) {}
 
   /**
    * Create a new tag
