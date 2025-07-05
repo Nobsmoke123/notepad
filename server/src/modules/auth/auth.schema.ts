@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const userRegisterSchema = z.object({
+export const userRegisterSchema = z.object({
   body: z.object({
     email: z.string().email(),
     password: z.string().min(8).max(100),
@@ -16,7 +16,7 @@ const userUpdateSchema = z.object({
   }),
 });
 
-const userLoginSchema = z.object({
+export const userLoginSchema = z.object({
   body: z.object({
     email: z.string().email(),
     password: z.string().min(8).max(100),
