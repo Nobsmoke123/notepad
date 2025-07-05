@@ -4,7 +4,7 @@ import { PUBLIC_KEY, PRIVATE_KEY } from '../../core/config';
 export interface ITokenPayload {
   id: string;
   email: string;
-  role: string;
+  fullname: string;
 }
 
 export default class JWTToken {
