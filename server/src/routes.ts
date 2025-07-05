@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { error, success } from './shared/utils/httpResponse';
+import authRouter from './modules/auth/auth.routes';
 
 const router = Router();
 
@@ -8,6 +9,7 @@ router.get('/api/health', (_req: Request, res: Response) => {
 });
 
 // Import routes for other modules
+router.use('/api/v1/auth', authRouter);
 
 router.all('/*splat', (_req: Request, res: Response) => {
   error(res, { status: 'Route not found' }, 404);
