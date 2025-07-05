@@ -37,10 +37,13 @@ class NoteRepository {
       data: {
         ...(tag && {
           tags: {
-            connect: { id: tag },
+            set: [{ id: tag }],
           },
         }),
         ...(content && { content }),
+      },
+      include: {
+        tags: true,
       },
     });
   }
