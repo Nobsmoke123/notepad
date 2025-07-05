@@ -52,8 +52,8 @@ class TagController {
    */
   deleteTag = async (req: Request<DeleteTagInput['params']>, res: Response) => {
     const { id } = req.params;
-    await this.tagService.deleteTag(id);
-    success(res, {}, 204);
+    const tag = await this.tagService.deleteTag(id);
+    success(res, { ...tag }, 200);
     return;
   };
 
@@ -81,7 +81,7 @@ class TagController {
       user: { id: userId },
     } = req;
     const tags = await this.tagService.getAllTagsByUserId(userId);
-    success(res, { ...tags }, 200);
+    success(res, tags, 200);
     return;
   };
 }

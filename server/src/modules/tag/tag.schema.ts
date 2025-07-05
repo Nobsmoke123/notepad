@@ -21,9 +21,14 @@ export const updateTagSchema = z.object({
     }),
   }),
   body: z.object({
-    name: z.string().min(3, {
-      message: 'name must be at least 3 characters long',
-    }),
+    name: z
+      .string({
+        required_error: 'name is required',
+        invalid_type_error: 'name must be a string',
+      })
+      .min(3, {
+        message: 'name must be at least 3 characters long',
+      }),
   }),
 });
 

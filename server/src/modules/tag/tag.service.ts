@@ -1,5 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import TagRepository from './tag.repository';
+import AppLogger from '../../core/logger';
+import { BadRequestError, NotFoundError } from '../../shared/errors';
 
 @injectable()
 class TagService {
@@ -14,8 +16,14 @@ class TagService {
    * @returns The created tag.
    */
   createTag = async (name: string, userId: string) => {
-    const tag = await this.tagRepository.createTag(name, userId);
-    return tag;
+    const existingTag = await this.tagRepository.getTagByName(name, userId);
+    if (existingTag) {
+      AppLogger.error(
+        `Tag with name ${name} already exists for user ${userId}`,
+      );
+      throw new BadRequestError(`Tag with name ${name} already exists`);
+    }
+    return await this.tagRepository.createTag(name, userId);
   };
 
   /**
@@ -25,8 +33,18 @@ class TagService {
    * @returns The updated tag.
    */
   updateTag = async (id: string, name: string) => {
-    const tag = await this.tagRepository.updateTag(id, name);
-    return tag;
+    const existingTag = await this.getTagById(id);
+    const checkName = await this.tagRepository.getTagByName(
+      name,
+      existingTag?.userId!,
+    );
+    if (checkName) {
+      AppLogger.error(
+        `Tag with name ${name} already exists for user ${existingTag?.userId!}`,
+      );
+      throw new BadRequestError(`Tag with name ${name} already exists`);
+    }
+    return await this.tagRepository.updateTag(existingTag?.id!, name);
   };
 
   /**
@@ -35,8 +53,8 @@ class TagService {
    * @returns The updated tag with the deletedAt field set.
    */
   deleteTag = async (id: string) => {
-    const tag = await this.tagRepository.deleteTag(id);
-    return tag;
+    const existingTag = await this.getTagById(id);
+    return await this.tagRepository.deleteTag(existingTag?.id!);
   };
 
   /**
@@ -45,7 +63,12 @@ class TagService {
    * @returns The tag with the specified ID, or null if not found.
    */
   getTagById = async (id: string) => {
-    return await this.tagRepository.getTagById(id);
+    const tag = await this.tagRepository.getTagById(id);
+    if (!tag) {
+      AppLogger.error(`Tag with ID ${id} not found`);
+      throw new NotFoundError(`Tag with ID ${id} not found`);
+    }
+    return tag;
   };
 
   /**

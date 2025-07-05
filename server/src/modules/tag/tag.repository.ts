@@ -42,10 +42,11 @@ class TagRepository {
    * @returns
    */
   deleteTag = async (id: string) => {
-    return this.prisma.tag.update({
+    const tag = await this.prisma.tag.update({
       where: { id },
       data: { deletedAt: new Date() },
     });
+    return tag;
   };
 
   /**
@@ -56,6 +57,17 @@ class TagRepository {
   getTagById = async (id: string) => {
     return this.prisma.tag.findUnique({
       where: { id },
+    });
+  };
+
+  /**
+   * Get a tag by its name
+   * @param name
+   * @returns
+   */
+  getTagByName = async (name: string, userId: string) => {
+    return this.prisma.tag.findFirst({
+      where: { name, userId },
     });
   };
 
