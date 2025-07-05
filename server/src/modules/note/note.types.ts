@@ -4,7 +4,6 @@ export interface CreateNoteDto {
 }
 
 export interface UpdateNoteDto {
-  id: string;
   tag?: string;
   content?: string;
 }

@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import NoteRepository from './note.repository';
 import { CreateNoteDto, UpdateNoteDto } from './note.types';
-import { NotFoundError } from '../../shared/errors';
+import { NotFoundError, UnauthorizedError } from '../../shared/errors';
 import TagRepository from '../tag/tag.repository';
 
 @injectable()
@@ -18,13 +18,19 @@ class NoteService {
     return await this.noteRepository.createNote(data, userId);
   };
 
-  updateNote = async (id: string, data: UpdateNoteDto) => {
+  updateNote = async (id: string, userId: string, data: UpdateNoteDto) => {
     const { tag } = data;
     const tagExists = await this.tagRepository.getTagById(tag!);
     if (!tagExists) throw new NotFoundError(`Tag with id ${tag} not found`);
 
     const note = await this.noteRepository.getNoteById(id);
     if (!note) throw new NotFoundError(`Note with id ${id} not found`);
+
+    if (note.userId !== userId) {
+      throw new UnauthorizedError(
+        `Note with id ${id} does not belong to user ${userId}`,
+      );
+    }
 
     return await this.noteRepository.updateNote(id, data);
   };

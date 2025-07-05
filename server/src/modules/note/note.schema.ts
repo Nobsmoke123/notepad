@@ -24,25 +24,35 @@ export const createNoteSchema = z.object({
 });
 
 export const updateNoteSchema = z.object({
-  body: z
-    .object({
-      tag: z
-        .string({
-          required_error: 'Tag is required',
-          invalid_type_error: 'Tag must be a string',
-        })
-        .min(1, 'Tag is required')
-        .optional(),
-    })
-    .optional(),
-  content: z
-    .string({
-      required_error: 'Content is required',
-      invalid_type_error: 'Content must be a string',
-    })
-    .min(10, 'Content is required')
-    .optional(),
+  params: z.object({
+    id: z.string({
+      required_error: 'id is required',
+    }),
+  }),
+  body: z.object({
+    tag: z
+      .string({
+        required_error: 'Tag is required',
+        invalid_type_error: 'Tag must be a string',
+      })
+      .min(1, 'Tag is required')
+      .optional(),
+    content: z
+      .string({
+        required_error: 'Content is required',
+        invalid_type_error: 'Content must be a string',
+      })
+      .min(10, 'Content is required')
+      .optional(),
+  }),
+});
+
+export const deleteNoteSchema = z.object({
+  params: z.object({
+    id: z.string(),
+  }),
 });
 
 export type CreateNoteInput = z.infer<typeof createNoteSchema>;
 export type UpdateNoteInput = z.infer<typeof updateNoteSchema>;
+export type DeleteNoteInput = z.infer<typeof deleteNoteSchema>;
