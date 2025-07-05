@@ -150,6 +150,7 @@ exports.Prisma.NoteScalarFieldEnum = {
 
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   name: 'name',
   createdAt: 'createdAt'
 };

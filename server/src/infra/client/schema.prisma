@@ -9,11 +9,11 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  fullname String
-  email    String  @unique
-  password String?
-
+  id           String         @id @default(cuid())
+  fullname     String
+  email        String         @unique
+  password     String?
+  tags         Tag[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   refreshToken RefreshToken[]
@@ -44,6 +44,8 @@ model Note {
 
 model Tag {
   id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
   name      String
   notes     Note[]   @relation("NoteTags")
   createdAt DateTime @default(now())
