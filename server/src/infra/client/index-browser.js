@@ -145,14 +145,16 @@ exports.Prisma.NoteScalarFieldEnum = {
   userId: 'userId',
   content: 'content',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   name: 'name',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.SortOrder = {
