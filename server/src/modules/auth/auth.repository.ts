@@ -10,19 +10,19 @@ class AuthRepository {
   ) {}
 
   async findUserByEmail(email: string) {
-    return this.prisma.user.findUnique({
+    return await this.prisma.user.findUnique({
       where: { email },
     });
   }
 
   async findUserById(id: string) {
-    return this.prisma.user.findUnique({
+    return await this.prisma.user.findUnique({
       where: { id },
     });
   }
 
   async createUser(data: CreateUserDto) {
-    return this.prisma.user.create({
+    return await this.prisma.user.create({
       data: {
         email: data.email,
         password: data.password,
@@ -35,7 +35,7 @@ class AuthRepository {
   }
 
   async updateUser(id: string, data: UpdateUserDto) {
-    return this.prisma.user.update({
+    return await this.prisma.user.update({
       where: { id },
       data,
       omit: {
