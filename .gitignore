@@ -1,3 +1,64 @@
-server/node_modules/
-server/src/keys/private.key
-server/src/keys/public.key
+# server/node_modules/
+# server/src/keys/private.key
+# server/src/keys/public.key
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+build/
+
+*.pem
+*.key
+*.pub
+private.key
+public.key
+
+.env
+.env.*.local
+coverage/
+*.local
+.DS_Store
+*.tgz
+.cache/
+.next/
+out/
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.log
+*.tsbuildinfo
+*.swp
+*.swo
+*.bak
+*.tmp
+*.pid
+*.seed
+*.pid.lock
+# Optional npm cache directory
+.npm/
+# Optional eslint cache
+.eslintcache
+# Optional REPL history
+.node_repl_history
+# Output of 'npm pack'
+*.tgz
+# Yarn Integrity file
+.yarn-integrity
+# dotenv environment variables file
+.env.test
+.env.production
+.env.development
+# Mac system files
+.DS_Store
+# VSCode settings
+.vscode/
+# JetBrains IDEs
+.idea/
+# SvelteKit build
+.svelte-kit/
+# TypeScript cache
+*.tsbuildinfo
