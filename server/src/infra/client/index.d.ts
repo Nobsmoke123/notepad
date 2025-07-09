@@ -1144,11 +1144,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     tags: number
     refreshToken: number
+    Note: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tags?: boolean | UserCountOutputTypeCountTagsArgs
     refreshToken?: boolean | UserCountOutputTypeCountRefreshTokenArgs
+    Note?: boolean | UserCountOutputTypeCountNoteArgs
   }
 
   // Custom InputTypes
@@ -1174,6 +1176,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountRefreshTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RefreshTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNoteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NoteWhereInput
   }
 
 
@@ -1463,7 +1472,7 @@ export namespace Prisma {
     objects: {
       tags: Prisma.$TagPayload<ExtArgs>[]
       refreshToken: Prisma.$RefreshTokenPayload<ExtArgs>[]
-      Note: Prisma.$NotePayload<ExtArgs> | null
+      Note: Prisma.$NotePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1868,7 +1877,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tags<T extends User$tagsArgs<ExtArgs> = {}>(args?: Subset<T, User$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     refreshToken<T extends User$refreshTokenArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Note<T extends User$NoteArgs<ExtArgs> = {}>(args?: Subset<T, User$NoteArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Note<T extends User$NoteArgs<ExtArgs> = {}>(args?: Subset<T, User$NoteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2356,6 +2365,11 @@ export namespace Prisma {
      */
     include?: NoteInclude<ExtArgs> | null
     where?: NoteWhereInput
+    orderBy?: NoteOrderByWithRelationInput | NoteOrderByWithRelationInput[]
+    cursor?: NoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NoteScalarFieldEnum | NoteScalarFieldEnum[]
   }
 
   /**
@@ -5812,7 +5826,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tags?: TagListRelationFilter
     refreshToken?: RefreshTokenListRelationFilter
-    Note?: XOR<NoteNullableScalarRelationFilter, NoteWhereInput> | null
+    Note?: NoteListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5824,7 +5838,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     tags?: TagOrderByRelationAggregateInput
     refreshToken?: RefreshTokenOrderByRelationAggregateInput
-    Note?: NoteOrderByWithRelationInput
+    Note?: NoteOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5839,7 +5853,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tags?: TagListRelationFilter
     refreshToken?: RefreshTokenListRelationFilter
-    Note?: XOR<NoteNullableScalarRelationFilter, NoteWhereInput> | null
+    Note?: NoteListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -5963,17 +5977,17 @@ export namespace Prisma {
 
   export type NoteWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId?: string
     AND?: NoteWhereInput | NoteWhereInput[]
     OR?: NoteWhereInput[]
     NOT?: NoteWhereInput | NoteWhereInput[]
+    userId?: StringFilter<"Note"> | string
     content?: StringFilter<"Note"> | string
     createdAt?: DateTimeFilter<"Note"> | Date | string
     updatedAt?: DateTimeFilter<"Note"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Note"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     tags?: TagListRelationFilter
-  }, "id" | "userId">
+  }, "id">
 
   export type NoteOrderByWithAggregationInput = {
     id?: SortOrder
@@ -6066,7 +6080,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tags?: TagCreateNestedManyWithoutUserInput
     refreshToken?: RefreshTokenCreateNestedManyWithoutUserInput
-    Note?: NoteCreateNestedOneWithoutUserInput
+    Note?: NoteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6078,7 +6092,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutUserInput
     refreshToken?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    Note?: NoteUncheckedCreateNestedOneWithoutUserInput
+    Note?: NoteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6090,7 +6104,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUpdateManyWithoutUserNestedInput
     refreshToken?: RefreshTokenUpdateManyWithoutUserNestedInput
-    Note?: NoteUpdateOneWithoutUserNestedInput
+    Note?: NoteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6102,7 +6116,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutUserNestedInput
     refreshToken?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    Note?: NoteUncheckedUpdateOneWithoutUserNestedInput
+    Note?: NoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6386,9 +6400,10 @@ export namespace Prisma {
     none?: RefreshTokenWhereInput
   }
 
-  export type NoteNullableScalarRelationFilter = {
-    is?: NoteWhereInput | null
-    isNot?: NoteWhereInput | null
+  export type NoteListRelationFilter = {
+    every?: NoteWhereInput
+    some?: NoteWhereInput
+    none?: NoteWhereInput
   }
 
   export type SortOrderInput = {
@@ -6401,6 +6416,10 @@ export namespace Prisma {
   }
 
   export type RefreshTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NoteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6571,16 +6590,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NoteListRelationFilter = {
-    every?: NoteWhereInput
-    some?: NoteWhereInput
-    none?: NoteWhereInput
-  }
-
-  export type NoteOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type TagCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -6619,10 +6628,11 @@ export namespace Prisma {
     connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
   }
 
-  export type NoteCreateNestedOneWithoutUserInput = {
-    create?: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput>
-    connectOrCreate?: NoteCreateOrConnectWithoutUserInput
-    connect?: NoteWhereUniqueInput
+  export type NoteCreateNestedManyWithoutUserInput = {
+    create?: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput> | NoteCreateWithoutUserInput[] | NoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NoteCreateOrConnectWithoutUserInput | NoteCreateOrConnectWithoutUserInput[]
+    createMany?: NoteCreateManyUserInputEnvelope
+    connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
   }
 
   export type TagUncheckedCreateNestedManyWithoutUserInput = {
@@ -6639,10 +6649,11 @@ export namespace Prisma {
     connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
   }
 
-  export type NoteUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput>
-    connectOrCreate?: NoteCreateOrConnectWithoutUserInput
-    connect?: NoteWhereUniqueInput
+  export type NoteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput> | NoteCreateWithoutUserInput[] | NoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NoteCreateOrConnectWithoutUserInput | NoteCreateOrConnectWithoutUserInput[]
+    createMany?: NoteCreateManyUserInputEnvelope
+    connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6685,14 +6696,18 @@ export namespace Prisma {
     deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
   }
 
-  export type NoteUpdateOneWithoutUserNestedInput = {
-    create?: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput>
-    connectOrCreate?: NoteCreateOrConnectWithoutUserInput
-    upsert?: NoteUpsertWithoutUserInput
-    disconnect?: NoteWhereInput | boolean
-    delete?: NoteWhereInput | boolean
-    connect?: NoteWhereUniqueInput
-    update?: XOR<XOR<NoteUpdateToOneWithWhereWithoutUserInput, NoteUpdateWithoutUserInput>, NoteUncheckedUpdateWithoutUserInput>
+  export type NoteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput> | NoteCreateWithoutUserInput[] | NoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NoteCreateOrConnectWithoutUserInput | NoteCreateOrConnectWithoutUserInput[]
+    upsert?: NoteUpsertWithWhereUniqueWithoutUserInput | NoteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NoteCreateManyUserInputEnvelope
+    set?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+    disconnect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+    delete?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+    connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+    update?: NoteUpdateWithWhereUniqueWithoutUserInput | NoteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NoteUpdateManyWithWhereWithoutUserInput | NoteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
   export type TagUncheckedUpdateManyWithoutUserNestedInput = {
@@ -6723,14 +6738,18 @@ export namespace Prisma {
     deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
   }
 
-  export type NoteUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput>
-    connectOrCreate?: NoteCreateOrConnectWithoutUserInput
-    upsert?: NoteUpsertWithoutUserInput
-    disconnect?: NoteWhereInput | boolean
-    delete?: NoteWhereInput | boolean
-    connect?: NoteWhereUniqueInput
-    update?: XOR<XOR<NoteUpdateToOneWithWhereWithoutUserInput, NoteUpdateWithoutUserInput>, NoteUncheckedUpdateWithoutUserInput>
+  export type NoteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput> | NoteCreateWithoutUserInput[] | NoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NoteCreateOrConnectWithoutUserInput | NoteCreateOrConnectWithoutUserInput[]
+    upsert?: NoteUpsertWithWhereUniqueWithoutUserInput | NoteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NoteCreateManyUserInputEnvelope
+    set?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+    disconnect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+    delete?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+    connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+    update?: NoteUpdateWithWhereUniqueWithoutUserInput | NoteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NoteUpdateManyWithWhereWithoutUserInput | NoteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutRefreshTokenInput = {
@@ -7068,6 +7087,11 @@ export namespace Prisma {
     create: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput>
   }
 
+  export type NoteCreateManyUserInputEnvelope = {
+    data: NoteCreateManyUserInput | NoteCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TagUpsertWithWhereUniqueWithoutUserInput = {
     where: TagWhereUniqueInput
     update: XOR<TagUpdateWithoutUserInput, TagUncheckedUpdateWithoutUserInput>
@@ -7125,33 +7149,32 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"RefreshToken"> | Date | string
   }
 
-  export type NoteUpsertWithoutUserInput = {
+  export type NoteUpsertWithWhereUniqueWithoutUserInput = {
+    where: NoteWhereUniqueInput
     update: XOR<NoteUpdateWithoutUserInput, NoteUncheckedUpdateWithoutUserInput>
     create: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput>
-    where?: NoteWhereInput
   }
 
-  export type NoteUpdateToOneWithWhereWithoutUserInput = {
-    where?: NoteWhereInput
+  export type NoteUpdateWithWhereUniqueWithoutUserInput = {
+    where: NoteWhereUniqueInput
     data: XOR<NoteUpdateWithoutUserInput, NoteUncheckedUpdateWithoutUserInput>
   }
 
-  export type NoteUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    tags?: TagUpdateManyWithoutNotesNestedInput
+  export type NoteUpdateManyWithWhereWithoutUserInput = {
+    where: NoteScalarWhereInput
+    data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type NoteUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    tags?: TagUncheckedUpdateManyWithoutNotesNestedInput
+  export type NoteScalarWhereInput = {
+    AND?: NoteScalarWhereInput | NoteScalarWhereInput[]
+    OR?: NoteScalarWhereInput[]
+    NOT?: NoteScalarWhereInput | NoteScalarWhereInput[]
+    id?: StringFilter<"Note"> | string
+    userId?: StringFilter<"Note"> | string
+    content?: StringFilter<"Note"> | string
+    createdAt?: DateTimeFilter<"Note"> | Date | string
+    updatedAt?: DateTimeFilter<"Note"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Note"> | Date | string | null
   }
 
   export type UserCreateWithoutRefreshTokenInput = {
@@ -7162,7 +7185,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagCreateNestedManyWithoutUserInput
-    Note?: NoteCreateNestedOneWithoutUserInput
+    Note?: NoteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokenInput = {
@@ -7173,7 +7196,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: TagUncheckedCreateNestedManyWithoutUserInput
-    Note?: NoteUncheckedCreateNestedOneWithoutUserInput
+    Note?: NoteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokenInput = {
@@ -7200,7 +7223,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUpdateManyWithoutUserNestedInput
-    Note?: NoteUpdateOneWithoutUserNestedInput
+    Note?: NoteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokenInput = {
@@ -7211,7 +7234,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: TagUncheckedUpdateManyWithoutUserNestedInput
-    Note?: NoteUncheckedUpdateOneWithoutUserNestedInput
+    Note?: NoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNoteInput = {
@@ -7319,7 +7342,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     refreshToken?: RefreshTokenCreateNestedManyWithoutUserInput
-    Note?: NoteCreateNestedOneWithoutUserInput
+    Note?: NoteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTagsInput = {
@@ -7330,7 +7353,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     refreshToken?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    Note?: NoteUncheckedCreateNestedOneWithoutUserInput
+    Note?: NoteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTagsInput = {
@@ -7380,7 +7403,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     refreshToken?: RefreshTokenUpdateManyWithoutUserNestedInput
-    Note?: NoteUpdateOneWithoutUserNestedInput
+    Note?: NoteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTagsInput = {
@@ -7391,7 +7414,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     refreshToken?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    Note?: NoteUncheckedUpdateOneWithoutUserNestedInput
+    Note?: NoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NoteUpsertWithWhereUniqueWithoutTagsInput = {
@@ -7410,18 +7433,6 @@ export namespace Prisma {
     data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyWithoutTagsInput>
   }
 
-  export type NoteScalarWhereInput = {
-    AND?: NoteScalarWhereInput | NoteScalarWhereInput[]
-    OR?: NoteScalarWhereInput[]
-    NOT?: NoteScalarWhereInput | NoteScalarWhereInput[]
-    id?: StringFilter<"Note"> | string
-    userId?: StringFilter<"Note"> | string
-    content?: StringFilter<"Note"> | string
-    createdAt?: DateTimeFilter<"Note"> | Date | string
-    updatedAt?: DateTimeFilter<"Note"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Note"> | Date | string | null
-  }
-
   export type TagCreateManyUserInput = {
     id?: string
     name: string
@@ -7437,6 +7448,14 @@ export namespace Prisma {
     location?: string | null
     expiresAt: Date | string
     createdAt?: Date | string
+  }
+
+  export type NoteCreateManyUserInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type TagUpdateWithoutUserInput = {
@@ -7490,6 +7509,32 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NoteUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: TagUpdateManyWithoutNotesNestedInput
+  }
+
+  export type NoteUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: TagUncheckedUpdateManyWithoutNotesNestedInput
+  }
+
+  export type NoteUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TagUpdateWithoutNotesInput = {
